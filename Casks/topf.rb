@@ -3,7 +3,7 @@ cask "topf" do
   name "topf"
   desc "Talos Orchestrator by PostFinance"
   homepage "https://github.com/postfinance/topf"
-  version "0.1.1"
+  version "0.1.2"
 
   livecheck do
     skip "Auto-generated on release."
@@ -14,22 +14,28 @@ cask "topf" do
   on_macos do
     on_intel do
       url "https://github.com/postfinance/topf/releases/download/v#{version}/topf_darwin_amd64.tar.gz"
-      sha256 "f4ee911c020d159df49cdf58c49a0be19ca1708f549c0638f90e2200f2e35dea"
+      sha256 "dea0901df74c59faa2cb72eb18f4ae0f4967b822190a0b10b81c71c320ca155b"
     end
     on_arm do
       url "https://github.com/postfinance/topf/releases/download/v#{version}/topf_darwin_arm64.tar.gz"
-      sha256 "a59cd2a0f6ff1f62aaf11d808ec38821eb6421d89b1a782dc64d42abc2e6c711"
+      sha256 "2fe19cc5e01f3032d090e887daa49755ed423d6e9ff8de5656df17333fc2ff46"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/postfinance/topf/releases/download/v#{version}/topf_linux_amd64.tar.gz"
-      sha256 "dc49f152788fd59f03b6434b79818ce842b95adfe6b3f42fdbb9dd966e590a61"
+      sha256 "692b660f194c87c17be5a95b552052aecc7e65ca1c44088de2369d65b3681918"
     end
     on_arm do
       url "https://github.com/postfinance/topf/releases/download/v#{version}/topf_linux_arm64.tar.gz"
-      sha256 "691ad1d5ece053aae2ec2ea8baaf561f294baebc0cd32cdad4192d0c463e41f7"
+      sha256 "b20ff8a6c195f772fbb649e5f4fac0887242d8377023e253983ddb0d01ed4106"
+    end
+  end
+
+  postflight do
+    if OS.mac?
+      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/topf"]
     end
   end
 
